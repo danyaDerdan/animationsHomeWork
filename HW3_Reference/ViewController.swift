@@ -8,7 +8,7 @@ class ViewController: UIViewController {
         static let colorDictionary = [0: UIColor.black, 1: UIColor.gray, 2: UIColor.white]
         static let titleFontSize: CGFloat = 30
         static let buttonCornerRandiuse: CGFloat = 10
-        static let buttonFontSize: CGFloat = 10
+        static let buttonFontSize: CGFloat = 20
         static let labelFontSize: CGFloat = 25
         static let showButtonFontSize: CGFloat = 20
         static let colorAnimationDuration: CGFloat = 4
@@ -119,7 +119,6 @@ class ViewController: UIViewController {
     private let loader: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(style: .medium)
         activityIndicator.color = .white
-        activityIndicator.hidesWhenStopped = true
         activityIndicator.startAnimating()
         activityIndicator.isHidden = true
         return activityIndicator
@@ -148,6 +147,9 @@ class ViewController: UIViewController {
         setupStartConstraints()
         button.addTarget(self, action: #selector(animateLabel), for: .touchUpInside)
         animationButtonsControl()
+        
+        view.addSubview(loader)
+        loader.center = view.center
     }
 
 }
@@ -156,8 +158,7 @@ private extension ViewController {
     private func addStartSubViews() {
         [
             titleLabel,
-            button,
-            loader
+            button
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
@@ -165,6 +166,7 @@ private extension ViewController {
     }
     
     private func setupStartConstraints() {
+        
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 150),
@@ -321,6 +323,5 @@ private extension ViewController {
             mainButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
             mainButton.heightAnchor.constraint(equalToConstant: 50),
             ])
-        loader.center = view.center
     }
 }
